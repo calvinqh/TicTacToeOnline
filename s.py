@@ -1,4 +1,5 @@
 import socketserver
+from TicTacToe import *
 
 game_board = [' ' for i in range(9)]
 
@@ -19,9 +20,10 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 
 		#TODO: send updatedgameboard
 
-		self.request.sendall(self.data.upper())
+		self.request.sendall(bytes(T,'utf-8'))
 
 if __name__ == "__main__":
     HOST, PORT = "localhost", 9999
+    game = TicTacToe()
     server = socketserver.TCPServer((HOST, PORT), myRequestHandler)
     server.serve_forever()
