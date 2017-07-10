@@ -1,8 +1,6 @@
 import socketserver
 from TicTacToe import *
 
-game_board = [' ' for i in range(9)]
-
 class myRequestHandler(socketserver.BaseRequestHandler):
 
 
@@ -18,9 +16,9 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 
 		#TODO: make computer move
 
-		#TODO: send updatedgameboard
-
-		self.request.sendall(bytes(T,'utf-8'))
+		#send gameboard
+		data = game.export()
+		self.request.sendall(data)
 
 if __name__ == "__main__":
     HOST, PORT = "localhost", 9999
