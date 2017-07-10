@@ -1,5 +1,7 @@
 import socketserver
 from TicTacToe import *
+import random
+import pickle
 
 class myRequestHandler(socketserver.BaseRequestHandler):
 
@@ -15,10 +17,21 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 		print("{} wrote:".format(self.client_address[0]))
 		print(self.data)
 
-		#TODO: update gameboard
+		# set piece
 		success = game.setPiece(coords)
+		#if not good move, prompt user for another coord and end
+		if not success:
+			message = pickle.dumps('Failed: Try Again')
+			self.request.sendall(message)
+			return
 
-		#TODO: make computer move
+		#make computer move
+		success = False
+		while(not success):
+			x = random.randint(0,2)
+			y = random.randint(0,2)
+			coords = [x,y]
+			success = game.setPiece(coords)
 
 		#send gameboard
 		data = game.export()
