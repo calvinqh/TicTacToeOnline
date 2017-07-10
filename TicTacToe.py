@@ -14,8 +14,6 @@ class TicTacToe:
 		self.winner = 0
 
 
-	
-
 	#Return false if space is taken, or invalid coord is given
 	def setPiece(self, coord):
 		x,y = coord
