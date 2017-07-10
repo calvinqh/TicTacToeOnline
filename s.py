@@ -25,6 +25,9 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 			self.request.sendall(message)
 			return
 
+		#TODO: check winner
+		
+
 		#make computer move
 		success = False
 		while(not success):

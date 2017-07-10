@@ -18,9 +18,12 @@ while(True):
 	sock.sendall(bytes(data + "\n", "utf-8"))
 	received = sock.recv(1024)
 	m = pickle.loads(received)
+	#Check if valid move
 	if(m == 'Failed: Try Again'):
 		print('Try Again')
 		continue
+	#TODO: check winner?
+	
 	game.updateBoard(received)
 	print(game)
 	sock.close()
