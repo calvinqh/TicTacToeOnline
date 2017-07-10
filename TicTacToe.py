@@ -35,5 +35,47 @@ class TicTacToe:
 		pass
 
 
+	def __str__(self):
+		s = ''
+		for i in range(self.size):
+			for j in range(self.size):
+				s+=str(self.board[i][j])
+			s+='\n'
+		return s
+
+	#return winner
+	#if no winner, return 0
+	def checkWinner(self):
+		horizontal = True
+		h_prev = 0
+		vertical = True
+		v_prev = 0
+		diagonal = True
+		winner = 0
+		for i in range(1,self.size):
+			h_prev = self.board[0][i]
+			v_prev = self.board[i][0]
+			for j in range(self.size):
+				if horizontal and h_prev == self.board[i][j]:
+					horizontal = True
+				if vertical and v_prev == self.board[j][i]:
+					vertical = True
+				h_prev = self.board[i][j]
+				v_prev = self.board[j][i]
+			#check winner
+			if vertical or horizontal:
+				winner = self.turn *-1 #bc set piece changes turn
+				break
+		return winner 
+
+
 if __name__ == "__main__":
 	g = TicTacToe()
+	g.setPiece((0,0))
+	g.setPiece((1,1))
+	g.setPiece((1,0))
+	g.setPiece((1,2))
+	g.setPiece((2,0))
+	print(g)
+	c = g.checkWinner()
+	print(c)
