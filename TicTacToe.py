@@ -4,6 +4,8 @@ import pickle
 
 class TicTacToe:
 
+	#turn == -1, char is O
+	#turn == 1, char is X
 	def __init__(self, size = 3):
 
 		self.board = [[0 for j in range(size)] for i in range(size)]
@@ -12,6 +14,8 @@ class TicTacToe:
 		#1 is player 2's turn
 		self.turn = -1
 		self.winner = 0
+		self.neg_default = 'O'
+		self.pos_default = 'X'
 
 
 	#Return false if space is taken, or invalid coord is given
@@ -29,13 +33,20 @@ class TicTacToe:
 
 
 	#encode the game board (change -1 to X and ...) and winner
-	def export(self):
+	def exportBoard(self):
 		data = pickle.dumps(self.board)
 		return data
 
-	def updateBoard(self, data):
+	def exportAll(self):
+		payload = {}
+		payload['board'] = self.board
+		payload['winner'] = self.winner
+		data = pickle.dumps(payload)
+		return data
+
+	def update(self, data):
 		results = pickle.loads(data)
-		self.board = results
+		self.board = results['board']
 
 
 	def __str__(self):
@@ -75,7 +86,7 @@ class TicTacToe:
 					vertical = False
 			#check winner
 			if vertical or horizontal:
-				self.winner = self.turn * -1 #bc set piece changes turn
+				self.winner = h_prev if horizontal else v_prev  #bc set piece changes turn
 				break
 			horizontal, vertical = True, True
 
@@ -92,11 +103,12 @@ class TicTacToe:
 			else:
 				rev_diagonal = False
 		if diagonal or rev_diagonal:
-			self.winner = self.turn * -1 #bc set piece changes turn
-
-		#TODO: check draw
+			self.winner = d_prev if diagonal else rd_prev #bc set piece changes turn
 
 		return self.winner 
+
+	def getWinner(self):
+		return self.neg_default if self.checkWinner() == -1 else self.pos_default
 
 
 if __name__ == "__main__":
