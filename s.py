@@ -13,10 +13,6 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 			self.data = self.request.recv(1024).strip()
 			coords = self.data.decode("utf-8").split(',')
 			coords = [int(i) for i in coords]
-			print("Client: ",coords)
-
-			print("{} wrote:".format(self.client_address[0]))
-			print(self.data)
 
 			# set piece
 			success = game.setPiece(coords)
@@ -32,6 +28,9 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 			if(winner != 0):
 				data = game.exportAll()
 				self.request.sendall(data)
+				print("Winner: {}".format(game.getWinner()))
+				print(game)
+				print("User has been disconnected.")
 				break
 
 			print(game)
@@ -39,10 +38,8 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 			success = False
 			while(not success):
 				my_coords = input('>>')
-				print(my_coords)
 				my_coords = my_coords.split(',')
 				my_coords = [int(i) for i in my_coords]
-				print("Server: ",my_coords)
 				success = game.setPiece(my_coords)
 
 			#check winner (TODO: make into method)
@@ -50,6 +47,9 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 			if(winner != 0):
 				data = game.exportAll()
 				self.request.sendall(data)
+				print("Winner: {}".format(game.getWinner()))
+				print(game)
+				print("User has been disconnected.")
 				break
 
 			#send gameboard
