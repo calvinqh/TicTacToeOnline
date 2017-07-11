@@ -110,6 +110,11 @@ class TicTacToe:
 	def getWinner(self):
 		return self.neg_default if self.checkWinner() == -1 else self.pos_default
 
+	def reset(self):
+		self.turn = -1
+		self.winner = 0
+		self.board = [[0 for j in range(self.size)] for i in range(self.size)]
+
 
 if __name__ == "__main__":
 	g = TicTacToe()
