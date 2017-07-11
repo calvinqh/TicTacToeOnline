@@ -29,12 +29,8 @@ while(True):
 	if(game.checkWinner() != 0):
 		print("Winner: {}".format(game.getWinner()))
 		print("You've been disconnected.")
+		break
 	print(game)
 	#sock.close()
 
-# Receive data from the server and shut down
-received = str(sock.recv(1024), "utf-8")
-
-print("Sent:     {}".format(data))
-print("Received: {}".format(received))
-
+print("To play again reconnect.")
