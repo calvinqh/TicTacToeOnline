@@ -72,8 +72,8 @@ class TicTacToe:
 
 		self.winner = 0
 		for i in range(self.size):
-			h_prev = self.board[0][i]
-			v_prev = self.board[i][0]
+			h_prev = self.board[i][0]
+			v_prev = self.board[0][i]
 			for j in range(self.size):
 				if horizontal and h_prev == self.board[i][j]:
 					h_prev = self.board[i][j]
@@ -120,12 +120,11 @@ if __name__ == "__main__":
 	g.setPiece((1,2))
 	g.setPiece((2,0))
 	'''
-	g.setPiece((1,1))
+	g.setPiece((0,1))
 	g.setPiece((0,0))
-	g.setPiece((1,2))
+	g.setPiece((1,1))
 	g.setPiece((1,0))
 	g.setPiece((2,1))
-	g.setPiece((2,0))
 	
 	'''
 	g.setPiece((0,0))
@@ -142,4 +141,5 @@ if __name__ == "__main__":
 	'''
 	c = g.checkWinner()
 	print(g)
+	print(g.checkWinner())
 	
