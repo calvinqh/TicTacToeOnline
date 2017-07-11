@@ -30,7 +30,9 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 				self.request.sendall(data)
 				print("Winner: {}".format(game.getWinner()))
 				print(game)
-				print("User has been disconnected.")
+				print("User has been disconnected\nGame has been reset.")
+				print("")
+				game.reset()
 				break
 
 			print(game)
@@ -49,7 +51,9 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 				self.request.sendall(data)
 				print("Winner: {}".format(game.getWinner()))
 				print(game)
-				print("User has been disconnected.")
+				print("User has been disconnected\nGame has been reset.")
+				print("")
+				game.reset()
 				break
 
 			#send gameboard
