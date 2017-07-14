@@ -1,12 +1,12 @@
 import socket
 import sys
 import pickle
-from TicTacToe import *
+from TicTacToeModel import *
 
 
 HOST, PORT = "localhost", 9999
 data = " ".join(sys.argv[1:])
-game = TicTacToe()
+game = TicTacToeModel()
 
 # Create a socket (SOCK_STREAM means a TCP socket)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

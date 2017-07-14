@@ -1,5 +1,5 @@
 import socketserver
-from TicTacToe import *
+from TicTacToeModel import *
 import random
 import pickle
 
@@ -62,6 +62,6 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 
 if __name__ == "__main__":
     HOST, PORT = "localhost", 9999
-    game = TicTacToe()
+    game = TicTacToeModel()
     server = socketserver.TCPServer((HOST, PORT), myRequestHandler)
     server.serve_forever()
