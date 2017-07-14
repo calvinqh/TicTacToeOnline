@@ -17,6 +17,8 @@ class TicTacToe:
 		self.neg_default = 'O'
 		self.pos_default = 'X'
 
+		
+
 
 	#Return false if space is taken, or invalid coord is given
 	def setPiece(self, coord):
