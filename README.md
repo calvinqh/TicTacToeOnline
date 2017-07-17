@@ -26,3 +26,6 @@ Another person runs client file to connect to server.
 
 
 * Fix folder format.
+
+
+This is a project for CS133
