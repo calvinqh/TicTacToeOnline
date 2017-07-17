@@ -11,17 +11,11 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 		#retrieve player command
 		while(True):
 			self.data = self.request.recv(1024).strip()
-			coords = self.data.decode("utf-8").split(',')
-			coords = [int(i) for i in coords]
+			d = pickle.loads(self.data)
+			
 
 			# set piece
-			success = game.setPiece(coords)
-
-			#if not good move, prompt user for another coord and end
-			if not success:
-				message = pickle.dumps('Failed: Try Again')
-				self.request.sendall(message)
-				return
+			success = game.update(self.data)
 
 			#check winner (TODO: make into method)
 			winner = game.checkWinner()
@@ -42,7 +36,7 @@ class myRequestHandler(socketserver.BaseRequestHandler):
 				my_coords = input('>>')
 				my_coords = my_coords.split(',')
 				my_coords = [int(i) for i in my_coords]
-				success = game.setPiece(my_coords)
+				success = game.setPieceServer(my_coords)
 
 			#check winner (TODO: make into method)
 			winner = game.checkWinner()
