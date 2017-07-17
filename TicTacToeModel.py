@@ -1,8 +1,9 @@
 T = 'Help'
 
 import pickle
+from wx.lib.pubsub import pub
 
-class TicTacToe:
+class TicTacToeModel:
 
 	#turn == -1, char is O
 	#turn == 1, char is X
@@ -29,6 +30,13 @@ class TicTacToe:
 		self.turn *= -1
 		return True
 
+	def setPieceServer(self, coord):
+		x,y = coord
+		if(not self.isValid(coord) or self.board[x][y] != 0):
+			return False
+		self.board[x][y] = self.turn
+		return True
+
 	def isValid(self, coord):
 		x,y = coord
 		return 0<=x<self.size and 0<=y<self.size
@@ -46,10 +54,22 @@ class TicTacToe:
 		data = pickle.dumps(payload)
 		return data
 
+	def getExportForGUI(self):
+		board=[]
+		for r in range(self.size):
+			board.append([])
+			for c in range(self.size):
+				board[r].append(self.board[r][c])
+		return board
+
 	def update(self, data):
 		results = pickle.loads(data)
 		self.board = results['board']
+		print(self.board)
+		pub.sendMessage('model.update',data={'board':self.getExportForGUI()})
 
+	def updateByGUI(self,data):
+		self.board = data['board']
 
 	def __str__(self):
 		s = ''
@@ -120,32 +140,13 @@ class TicTacToe:
 
 if __name__ == "__main__":
 	g = TicTacToe()
-	'''
-	g.setPiece((0,0))
-	g.setPiece((1,1))
-	g.setPiece((1,0))
-	g.setPiece((1,2))
-	g.setPiece((2,0))
-	'''
+	
 	g.setPiece((0,1))
 	g.setPiece((0,0))
 	g.setPiece((1,1))
 	g.setPiece((1,0))
 	g.setPiece((2,1))
 	
-	'''
-	g.setPiece((0,0))
-	g.setPiece((1,0))
-	g.setPiece((1,1))
-	g.setPiece((2,0))
-	g.setPiece((2,2))
-	
-	g.setPiece((2,0))
-	g.setPiece((1,0))
-	g.setPiece((1,1))
-	g.setPiece((2,1))
-	g.setPiece((0,2))
-	'''
 	c = g.checkWinner()
 	print(g)
 	print(g.checkWinner())
