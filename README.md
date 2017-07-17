@@ -23,3 +23,6 @@ Another person runs client file to connect to server.
 
 
 * Allow users to connect to enter IP they wish to connect to.
+
+
+* Fix folder format.
